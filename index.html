@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="安倫 Crafts · Authentic Ifugao heritage crafts, curated for Taiwan. Tradition woven into modern life.">
+    <title>安倫 Crafts — Tradition Woven Into Modern Life</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="light">
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        <div class="container announce-inner">
+            <span class="announce-text" data-i18n="announce">✦ Heritage Collection Launch — Enjoy <strong>20% OFF</strong> with code <strong>ANLUN20</strong> ✦ Free shipping over NT$ 2,800 ✦</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#top" class="logo">
+                <span class="logo-chinese">安倫</span>
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">CRAFTS</span>
+            </a>
+            <div class="nav-links">
+                <a href="#story" class="nav-link" data-i18n="nav.story">Our Story</a>
+                <a href="#products" class="nav-link" data-i18n="nav.collection">Collection</a>
+                <a href="#craftsmanship" class="nav-link" data-i18n="nav.craft">Craft</a>
+                <a href="#origin" class="nav-link" data-i18n="nav.origin">Origin</a>
+                <a href="#offer" class="nav-link" data-i18n="nav.offers">Offers</a>
+                <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
+            </div>
+            <div class="nav-right">
+                <!-- Language Switcher -->
+                <div class="lang-switcher">
+                    <button class="lang-button" id="langButton" aria-label="Change language">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        <span id="langLabel">EN</span>
+                        <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="lang-menu" id="langMenu">
+                        <button class="lang-option" data-lang="en">English</button>
+                        <button class="lang-option" data-lang="zh">繁體中文</button>
+                        <button class="lang-option" data-lang="fil">Filipino</button>
+                    </div>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero" id="top">
+        <div class="hero-bg"><div class="hero-grain"></div></div>
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <span class="eyebrow" data-i18n="hero.eyebrow">Crafted in Banaue · Curated in Taipei</span>
+                <h1 class="hero-title">
+                    <span class="hero-line" data-i18n="hero.line1">Tradition</span>
+                    <span class="hero-line" data-i18n="hero.line2"><em>woven</em> into</span>
+                    <span class="hero-line" data-i18n="hero.line3">modern life.</span>
+                </h1>
+                <p class="hero-lede" data-i18n="hero.lede">
+                    Heirloom-quality rattan, bamboo and abaca crafts —
+                    handwoven in the Cordillera mountains, brought to Taiwan
+                    by collectors who believe four hundred years of craft
+                    deserve more than a museum case.
+                </p>
+                <div class="hero-actions">
+                    <a href="#products" class="btn btn-primary">
+                        <span data-i18n="hero.cta">Explore Collection</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <a href="#story" class="btn btn-ghost" data-i18n="hero.cta2">Our Heritage</a>
+                </div>
+                <div class="hero-meta">
+                    <div class="meta-item"><strong>5</strong><span data-i18n="hero.meta1">Signature Pieces</span></div>
+                    <div class="meta-item"><strong>400+</strong><span data-i18n="hero.meta2">Years of Craft</span></div>
+                    <div class="meta-item"><strong>100%</strong><span data-i18n="hero.meta3">Handwoven</span></div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card hero-card-1">
+                    <img src="images/inabnutan_1.jpg" alt="Inabnutan ceremonial bag">
+                    <span class="hero-card-tag">Inabnutan</span>
+                </div>
+                <div class="hero-card hero-card-2">
+                    <img src="images/kayabang_1.jpg" alt="Kayabang basket">
+                    <span class="hero-card-tag">Kayabang</span>
+                </div>
+                <div class="hero-card hero-card-3">
+                    <img src="images/kupit_1.jpg" alt="Kupit basket">
+                    <span class="hero-card-tag">Kupit</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span data-i18n="hero.scroll">SCROLL</span>
+            <div class="scroll-line"></div>
+        </div>
+    </header>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <span data-i18n="marquee.a">HANDWOVEN HERITAGE</span><span class="diamond">◆</span>
+            <span data-i18n="marquee.b">IFUGAO ARTISANRY</span><span class="diamond">◆</span>
+            <span data-i18n="marquee.c">SLOW MADE</span><span class="diamond">◆</span>
+            <span data-i18n="marquee.d">BANAUE → TAIPEI</span><span class="diamond">◆</span>
+            <span data-i18n="marquee.a">HANDWOVEN HERITAGE</span><span class="diamond">◆</span>
+            <span data-i18n="marquee.b">IFUGAO ARTISANRY</span><span class="diamond">◆</span>
+            <span data-i18n="marquee.c">SLOW MADE</span><span class="diamond">◆</span>
+            <span data-i18n="marquee.d">BANAUE → TAIPEI</span><span class="diamond">◆</span>
+        </div>
+    </div>
+
+    <!-- BRAND STORY -->
+    <section class="story" id="story">
+        <div class="container story-grid">
+            <div class="story-image">
+                <img src="images/hapeeng_1.jpg" alt="Hape Eng — heritage weaving">
+                <div class="story-image-caption" data-i18n="story.caption">— Hape Eng, lovingly woven, 2024 —</div>
+            </div>
+            <div class="story-text">
+                <span class="eyebrow" data-i18n="story.eyebrow">The Anlun House</span>
+                <h2 class="section-title" data-i18n="story.title">A house built on patience, fibre, and time.</h2>
+                <p data-i18n="story.p1">
+                    <strong>安倫 (Ān Lún)</strong> — meaning <em>"peaceful order"</em> — was founded
+                    in Taipei to bring the rapidly disappearing weaving traditions of the
+                    Ifugao people, who terraced the mountains of Banaue more than
+                    two thousand years ago, to the Taiwanese audience that
+                    appreciates a quiet kind of beauty.
+                </p>
+                <p data-i18n="story.p2">
+                    Every piece in our collection is born from natural rattan and
+                    bamboo, gathered with respect from the forests of the Cordilleras,
+                    and shaped over weeks — sometimes months — by master weavers
+                    who learned this language from their grandmothers. We pay
+                    every artisan above market wage and travel to Banaue four
+                    times a year to choose each piece in person.
+                </p>
+                <div class="story-stats">
+                    <div class="stat">
+                        <span class="stat-num">02</span>
+                        <span class="stat-label" data-i18n="story.s1">Generations of weavers</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num">15</span>
+                        <span class="stat-label" data-i18n="story.s2">Master artisans</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num">∞</span>
+                        <span class="stat-label" data-i18n="story.s3">Care per stitch</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="values" id="craftsmanship">
+        <div class="container">
+            <div class="values-header">
+                <span class="eyebrow" data-i18n="values.eyebrow">Why Anlun</span>
+                <h2 class="section-title" data-i18n="values.title">Built for the few who notice the details.</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg></div>
+                    <h3 data-i18n="values.v1.t">100% Handwoven</h3>
+                    <p data-i18n="values.v1.d">Not a single machine touches our crafts. Every fibre is laid by hand, the way it has been for four centuries.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+                    <h3 data-i18n="values.v2.t">Banaue Born</h3>
+                    <p data-i18n="values.v2.d">Sourced and woven only in the highlands of Ifugao — the same earth that has cradled this craft for millennia.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
+                    <h3 data-i18n="values.v3.t">Fair Artisan Wage</h3>
+                    <p data-i18n="values.v3.d">Every purchase pays our weavers above-market rates — keeping the craft alive for the next generation.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22a8 8 0 0 1 8-8h4a8 8 0 0 1 8 8"></path><circle cx="12" cy="8" r="6"></circle></svg></div>
+                    <h3 data-i18n="values.v4.t">Heirloom Quality</h3>
+                    <p data-i18n="values.v4.d">Built to outlive trends, outlast generations. A piece you'll one day hand to your children.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <div class="products-header">
+                <span class="eyebrow" data-i18n="products.eyebrow">The Collection</span>
+                <h2 class="section-title" data-i18n="products.title">Five pieces. Five stories. <em>One people.</em></h2>
+                <p class="products-intro" data-i18n="products.intro">
+                    Each item is a living chapter of Ifugao history — chosen for its
+                    distinct silhouette, weave, and role in the daily and ceremonial
+                    life of the Cordillera mountains.
+                </p>
+            </div>
+
+            <!-- 1: INABNUTAN -->
+            <article class="product" id="inabnutan">
+                <div class="product-number">01</div>
+                <div class="product-layout">
+                    <div class="product-info">
+                        <span class="product-eyebrow" data-i18n="p1.tag">Ceremonial · Heirloom</span>
+                        <h3 class="product-name">Inabnutan</h3>
+                        <p class="product-pron">/ee-nahb-NOO-tahn/</p>
+                        <p class="product-desc" data-i18n="p1.desc">
+                            The most revered piece in our collection. The Inabnutan is
+                            a ceremonial bag crowned with a dramatic V-shaped opening
+                            and clothed in a dense fringe of dark plant fibres — once
+                            worn only by elders and chieftains during ritual gatherings.
+                        </p>
+                        <div class="product-features">
+                            <h4 data-i18n="p.features">Features</h4>
+                            <ul>
+                                <li data-i18n="p1.f1">Hand-twisted natural fibre fringe</li>
+                                <li data-i18n="p1.f2">Reinforced chevron-braided opening</li>
+                                <li data-i18n="p1.f3">Solid rattan body, woven over six weeks</li>
+                                <li data-i18n="p1.f4">One-of-one — no two are alike</li>
+                            </ul>
+                        </div>
+                        <div class="product-price">
+                            <span class="price-current">NT$ 7,200</span>
+                            <span class="price-old">NT$ 9,000</span>
+                            <span class="price-tag" data-i18n="p.tag">−20% LAUNCH</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary btn-sm" data-i18n="p.enquire">Enquire to Purchase</a>
+                    </div>
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img src="images/inabnutan_1.jpg" alt="Inabnutan — Main view" class="product-main-img" id="inabnutan-main">
+                        </div>
+                        <div class="thumbnail-grid">
+                            <img src="images/inabnutan_1.jpg" alt="Inabnutan 1" class="thumbnail active" onclick="changeImage('inabnutan', 'inabnutan_1')">
+                            <img src="images/inabnutan_2.jpg" alt="Inabnutan 2" class="thumbnail" onclick="changeImage('inabnutan', 'inabnutan_2')">
+                            <img src="images/inabnutan_3.jpg" alt="Inabnutan 3" class="thumbnail" onclick="changeImage('inabnutan', 'inabnutan_3')">
+                            <img src="images/inabnutan_4.jpg" alt="Inabnutan 4" class="thumbnail" onclick="changeImage('inabnutan', 'inabnutan_4')">
+                            <img src="images/inabnutan_5.jpg" alt="Inabnutan 5" class="thumbnail" onclick="changeImage('inabnutan', 'inabnutan_5')">
+                            <img src="images/inabnutan_6.jpg" alt="Inabnutan 6" class="thumbnail" onclick="changeImage('inabnutan', 'inabnutan_6')">
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2: PASIKING -->
+            <article class="product reverse" id="pasiking">
+                <div class="product-number">02</div>
+                <div class="product-layout">
+                    <div class="product-info">
+                        <span class="product-eyebrow" data-i18n="p2.tag">Everyday · Carry</span>
+                        <h3 class="product-name">Pasiking</h3>
+                        <p class="product-pron">/pah-SEE-king/</p>
+                        <p class="product-desc" data-i18n="p2.desc">
+                            The original Ifugao backpack — and arguably the original
+                            sustainable bag. Lightweight, airy, and impossibly strong,
+                            the Pasiking has carried rice, tools, and traveller's
+                            belongings up and down the terraces for generations.
+                        </p>
+                        <div class="product-features">
+                            <h4 data-i18n="p.features">Features</h4>
+                            <ul>
+                                <li data-i18n="p2.f1">Slim profile fits city or trail</li>
+                                <li data-i18n="p2.f2">Braided rattan shoulder straps</li>
+                                <li data-i18n="p2.f3">Reinforced base for heavy loads</li>
+                                <li data-i18n="p2.f4">Available in 5 graduated sizes</li>
+                            </ul>
+                        </div>
+                        <div class="product-price">
+                            <span class="price-current">NT$ 2,380</span>
+                            <span class="price-old">NT$ 2,980</span>
+                            <span class="price-tag" data-i18n="p.tag">−20% LAUNCH</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary btn-sm" data-i18n="p.enquire">Enquire to Purchase</a>
+                    </div>
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img src="images/pasiking_1.jpg" alt="Pasiking — Main view" class="product-main-img" id="pasiking-main">
+                        </div>
+                        <div class="thumbnail-grid">
+                            <img src="images/pasiking_1.jpg" alt="Pasiking 1" class="thumbnail active" onclick="changeImage('pasiking', 'pasiking_1')">
+                            <img src="images/pasiking_2.jpg" alt="Pasiking 2" class="thumbnail" onclick="changeImage('pasiking', 'pasiking_2')">
+                            <img src="images/pasiking_3.jpg" alt="Pasiking 3" class="thumbnail" onclick="changeImage('pasiking', 'pasiking_3')">
+                            <img src="images/pasiking_4.jpg" alt="Pasiking 4" class="thumbnail" onclick="changeImage('pasiking', 'pasiking_4')">
+                            <img src="images/pasiking_5.jpg" alt="Pasiking 5" class="thumbnail" onclick="changeImage('pasiking', 'pasiking_5')">
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 3: HAPE ENG -->
+            <article class="product" id="hapeeng">
+                <div class="product-number">03</div>
+                <div class="product-layout">
+                    <div class="product-info">
+                        <span class="product-eyebrow" data-i18n="p3.tag">Domestic · Sculptural</span>
+                        <h3 class="product-name">Hape Eng</h3>
+                        <p class="product-pron">/HAH-peh eng/</p>
+                        <p class="product-desc" data-i18n="p3.desc">
+                            A study in geometric grace. The Hape Eng's curved silhouette
+                            and tightly woven walls were originally designed to hold
+                            harvested rice — today, it stands as a sculptural object
+                            in modern interiors, with an honest, lived-in beauty.
+                        </p>
+                        <div class="product-features">
+                            <h4 data-i18n="p.features">Features</h4>
+                            <ul>
+                                <li data-i18n="p3.f1">Refined diagonal weave</li>
+                                <li data-i18n="p3.f2">Solid bamboo rim and base</li>
+                                <li data-i18n="p3.f3">Hand-braided carrying cord</li>
+                                <li data-i18n="p3.f4">Sealed with natural beeswax</li>
+                            </ul>
+                        </div>
+                        <div class="product-price">
+                            <span class="price-current">NT$ 3,640</span>
+                            <span class="price-old">NT$ 4,550</span>
+                            <span class="price-tag" data-i18n="p.tag">−20% LAUNCH</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary btn-sm" data-i18n="p.enquire">Enquire to Purchase</a>
+                    </div>
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img src="images/hapeeng_1.jpg" alt="Hape Eng — Main view" class="product-main-img" id="hapeeng-main">
+                        </div>
+                        <div class="thumbnail-grid">
+                            <img src="images/hapeeng_1.jpg" alt="Hape Eng 1" class="thumbnail active" onclick="changeImage('hapeeng', 'hapeeng_1')">
+                            <img src="images/hapeeng_2.jpg" alt="Hape Eng 2" class="thumbnail" onclick="changeImage('hapeeng', 'hapeeng_2')">
+                            <img src="images/hapeeng_3.jpg" alt="Hape Eng 3" class="thumbnail" onclick="changeImage('hapeeng', 'hapeeng_3')">
+                            <img src="images/hapeeng_4.jpg" alt="Hape Eng 4" class="thumbnail" onclick="changeImage('hapeeng', 'hapeeng_4')">
+                            <img src="images/hapeeng_5.jpg" alt="Hape Eng 5" class="thumbnail" onclick="changeImage('hapeeng', 'hapeeng_5')">
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 4: KUPIT -->
+            <article class="product reverse" id="kupit">
+                <div class="product-number">04</div>
+                <div class="product-layout">
+                    <div class="product-info">
+                        <span class="product-eyebrow" data-i18n="p4.tag">Storage · Architectural</span>
+                        <h3 class="product-name">Kupit</h3>
+                        <p class="product-pron">/KOO-peet/</p>
+                        <p class="product-desc" data-i18n="p4.desc">
+                            All sharp lines and warm tones, the Kupit is woven in a
+                            characteristic red-brown herringbone that almost glows
+                            in low light. Architectural in form, it was traditionally
+                            used to store dry rice, valuables and sacred objects.
+                        </p>
+                        <div class="product-features">
+                            <h4 data-i18n="p.features">Features</h4>
+                            <ul>
+                                <li data-i18n="p4.f1">Signature herringbone twill weave</li>
+                                <li data-i18n="p4.f2">Naturally dyed rattan strips</li>
+                                <li data-i18n="p4.f3">Single hand-tied shoulder strap</li>
+                                <li data-i18n="p4.f4">Square base, tapered shoulders</li>
+                            </ul>
+                        </div>
+                        <div class="product-price">
+                            <span class="price-current">NT$ 4,320</span>
+                            <span class="price-old">NT$ 5,400</span>
+                            <span class="price-tag" data-i18n="p.tag">−20% LAUNCH</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary btn-sm" data-i18n="p.enquire">Enquire to Purchase</a>
+                    </div>
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img src="images/kupit_1.jpg" alt="Kupit — Main view" class="product-main-img" id="kupit-main">
+                        </div>
+                        <div class="thumbnail-grid">
+                            <img src="images/kupit_1.jpg" alt="Kupit 1" class="thumbnail active" onclick="changeImage('kupit', 'kupit_1')">
+                            <img src="images/kupit_2.jpg" alt="Kupit 2" class="thumbnail" onclick="changeImage('kupit', 'kupit_2')">
+                            <img src="images/kupit_3.jpg" alt="Kupit 3" class="thumbnail" onclick="changeImage('kupit', 'kupit_3')">
+                            <img src="images/kupit_4.jpg" alt="Kupit 4" class="thumbnail" onclick="changeImage('kupit', 'kupit_4')">
+                            <img src="images/kupit_5.jpg" alt="Kupit 5" class="thumbnail" onclick="changeImage('kupit', 'kupit_5')">
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 5: KAYABANG -->
+            <article class="product" id="kayabang">
+                <div class="product-number">05</div>
+                <div class="product-layout">
+                    <div class="product-info">
+                        <span class="product-eyebrow" data-i18n="p5.tag">Heritage · Open Weave</span>
+                        <h3 class="product-name">Kayabang</h3>
+                        <p class="product-pron">/kah-YAH-bahng/</p>
+                        <p class="product-desc" data-i18n="p5.desc">
+                            A breathing basket. The Kayabang's silhouette — narrow at
+                            the base, opening into a crown of vertical bamboo bars —
+                            was designed to carry vegetables from the terraces back
+                            home, allowing the produce to breathe on the long descent.
+                        </p>
+                        <div class="product-features">
+                            <h4 data-i18n="p.features">Features</h4>
+                            <ul>
+                                <li data-i18n="p5.f1">Open-weave ventilated crown</li>
+                                <li data-i18n="p5.f2">Hand-shaved bamboo vertical ribs</li>
+                                <li data-i18n="p5.f3">Tight rattan binding at every joint</li>
+                                <li data-i18n="p5.f4">Sculptural floor or shelf piece</li>
+                            </ul>
+                        </div>
+                        <div class="product-price">
+                            <span class="price-current">NT$ 5,000</span>
+                            <span class="price-old">NT$ 6,250</span>
+                            <span class="price-tag" data-i18n="p.tag">−20% LAUNCH</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary btn-sm" data-i18n="p.enquire">Enquire to Purchase</a>
+                    </div>
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img src="images/kayabang_1.jpg" alt="Kayabang — Main view" class="product-main-img" id="kayabang-main">
+                        </div>
+                        <div class="thumbnail-grid">
+                            <img src="images/kayabang_1.jpg" alt="Kayabang 1" class="thumbnail active" onclick="changeImage('kayabang', 'kayabang_1')">
+                            <img src="images/kayabang_2.jpg" alt="Kayabang 2" class="thumbnail" onclick="changeImage('kayabang', 'kayabang_2')">
+                            <img src="images/kayabang_3.jpg" alt="Kayabang 3" class="thumbnail" onclick="changeImage('kayabang', 'kayabang_3')">
+                            <img src="images/kayabang_4.jpg" alt="Kayabang 4" class="thumbnail" onclick="changeImage('kayabang', 'kayabang_4')">
+                            <img src="images/kayabang_5.jpg" alt="Kayabang 5" class="thumbnail" onclick="changeImage('kayabang', 'kayabang_5')">
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ORIGIN MAP -->
+    <section class="origin" id="origin">
+        <div class="container">
+            <div class="origin-header">
+                <span class="eyebrow" data-i18n="origin.eyebrow">From Mountain to Doorstep</span>
+                <h2 class="section-title" data-i18n="origin.title">Where every weave begins.</h2>
+                <p class="origin-intro" data-i18n="origin.intro">
+                    Every Anlun piece travels 1,200 kilometres — from the rice terraces of
+                    Banaue, in the Ifugao province of the Philippines, across the sea to
+                    our Taipei studio, and finally to your home.
+                </p>
+            </div>
+
+            <div class="origin-layout">
+                <div class="origin-map-wrap">
+                    <div id="originMap" class="origin-map"></div>
+                    <div class="map-route">
+                        <div class="route-point route-from">
+                            <span class="route-dot"></span>
+                            <div class="route-text">
+                                <strong data-i18n="origin.from">Crafted in</strong>
+                                <span>Banaue, Ifugao · Philippines</span>
+                            </div>
+                        </div>
+                        <div class="route-line"></div>
+                        <div class="route-point route-to">
+                            <span class="route-dot route-dot-gold"></span>
+                            <div class="route-text">
+                                <strong data-i18n="origin.to">Curated in</strong>
+                                <span>Taipei, Taiwan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="origin-text">
+                    <div class="origin-facts">
+                        <div class="origin-fact">
+                            <span class="fact-label" data-i18n="origin.f1.l">Province</span>
+                            <span class="fact-value">Ifugao</span>
+                        </div>
+                        <div class="origin-fact">
+                            <span class="fact-label" data-i18n="origin.f2.l">Town</span>
+                            <span class="fact-value">Banaue</span>
+                        </div>
+                        <div class="origin-fact">
+                            <span class="fact-label" data-i18n="origin.f3.l">Elevation</span>
+                            <span class="fact-value">1,500 m</span>
+                        </div>
+                        <div class="origin-fact">
+                            <span class="fact-label" data-i18n="origin.f4.l">UNESCO Heritage</span>
+                            <span class="fact-value">Since 1995</span>
+                        </div>
+                        <div class="origin-fact">
+                            <span class="fact-label" data-i18n="origin.f5.l">Distance to Taipei</span>
+                            <span class="fact-value">1,200 km</span>
+                        </div>
+                        <div class="origin-fact">
+                            <span class="fact-label" data-i18n="origin.f6.l">Coordinates</span>
+                            <span class="fact-value">16.91° N · 121.05° E</span>
+                        </div>
+                    </div>
+                    <p class="origin-quote" data-i18n="origin.quote">
+                        "The terraces of Banaue are often called the Eighth Wonder of the
+                        World — carved by hand into the mountains over two thousand years
+                        ago. The hands that shape our crafts are the same hands that
+                        still tend those terraces today."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OFFER -->
+    <section class="offer" id="offer">
+        <div class="container">
+            <div class="offer-card">
+                <div class="offer-art" aria-hidden="true">
+                    <span class="floating-leaf leaf-1">◈</span>
+                    <span class="floating-leaf leaf-2">◇</span>
+                    <span class="floating-leaf leaf-3">◆</span>
+                </div>
+                <div class="offer-content">
+                    <span class="eyebrow eyebrow-light" data-i18n="offer.eyebrow">Limited · Heritage Launch</span>
+                    <h2 class="offer-title" data-i18n="offer.title">Take 20% off your first heirloom.</h2>
+                    <p class="offer-text" data-i18n="offer.text">
+                        Use code <strong>ANLUN20</strong> at checkout. Enjoy complimentary
+                        carbon-neutral shipping anywhere in Taiwan on every order above
+                        NT$ 2,800, and an engraved certificate of authenticity
+                        hand-signed by the weaver of your piece.
+                    </p>
+                    <div class="offer-row">
+                        <div class="offer-feature">
+                            <strong>FREE</strong>
+                            <span data-i18n="offer.f1">Shipping over NT$ 2,800</span>
+                        </div>
+                        <div class="offer-feature">
+                            <strong>30-DAY</strong>
+                            <span data-i18n="offer.f2">Easy returns</span>
+                        </div>
+                        <div class="offer-feature">
+                            <strong>SIGNED</strong>
+                            <span data-i18n="offer.f3">Certificate of authenticity</span>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn btn-light" data-i18n="offer.cta">Claim Your Discount</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="testimonials-header">
+                <span class="eyebrow" data-i18n="test.eyebrow">In their own words</span>
+                <h2 class="section-title" data-i18n="test.title">Loved by collectors and dreamers alike.</h2>
+            </div>
+            <div class="testimonials-grid">
+                <blockquote class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p data-i18n="test.t1">"My Inabnutan arrived wrapped like a relic. It is the most beautiful object in my home — every guest stops in front of it."</p>
+                    <cite>— Mei L., 台北 Taipei</cite>
+                </blockquote>
+                <blockquote class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p data-i18n="test.t2">"I carry my Pasiking everywhere. It's been three years and it has only grown more beautiful with use. A forever bag."</p>
+                    <cite>— Aldous R., 高雄 Kaohsiung</cite>
+                </blockquote>
+                <blockquote class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p data-i18n="test.t3">"You can feel the hours in each weave. Buying from Anlun feels less like a purchase and more like an inheritance."</p>
+                    <cite>— Sophie D., 台中 Taichung</cite>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE -->
+    <section class="service" id="contact">
+        <div class="container">
+            <div class="service-header">
+                <span class="eyebrow" data-i18n="srv.eyebrow">Care · Payment · Contact</span>
+                <h2 class="section-title" data-i18n="srv.title">We look after you, always.</h2>
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3 class="service-card-title" data-i18n="srv.c1.t">Customer Care</h3>
+                    <ul class="service-list">
+                        <li><span class="service-label" data-i18n="srv.c1.l1">Concierge</span><span class="service-value">care@anluncrafts.tw</span></li>
+                        <li><span class="service-label" data-i18n="srv.c1.l2">Phone</span><span class="service-value">+886 (02) 2747 — 2024</span></li>
+                        <li><span class="service-label" data-i18n="srv.c1.l3">Hours</span><span class="service-value" data-i18n="srv.c1.v3">Mon — Sat · 10 AM – 7 PM TWT</span></li>
+                        <li><span class="service-label" data-i18n="srv.c1.l4">Showroom</span><span class="service-value" data-i18n="srv.c1.v4">No. 88, Da'an Rd, Da'an Dist, Taipei 106</span></li>
+                        <li><span class="service-label" data-i18n="srv.c1.l5">LINE</span><span class="service-value">@anluncrafts</span></li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h3 class="service-card-title" data-i18n="srv.c2.t">Payment Methods</h3>
+                    <p class="service-card-sub" data-i18n="srv.c2.s">Secure checkout. Locally trusted.</p>
+                    <div class="payment-grid">
+                        <div class="pay-chip">VISA</div>
+                        <div class="pay-chip">MASTERCARD</div>
+                        <div class="pay-chip">JCB</div>
+                        <div class="pay-chip">LINE PAY</div>
+                        <div class="pay-chip">街口 JKO</div>
+                        <div class="pay-chip">悠遊付</div>
+                        <div class="pay-chip">ATM 轉帳</div>
+                        <div class="pay-chip" data-i18n="srv.c2.cod">CASH ON DELIVERY</div>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <h3 class="service-card-title" data-i18n="srv.c3.t">Shipping & Returns</h3>
+                    <ul class="service-list">
+                        <li><span class="service-label" data-i18n="srv.c3.l1">Taiwan</span><span class="service-value" data-i18n="srv.c3.v1">1 – 3 business days</span></li>
+                        <li><span class="service-label" data-i18n="srv.c3.l2">7-Eleven Pickup</span><span class="service-value" data-i18n="srv.c3.v2">Free over NT$ 2,800</span></li>
+                        <li><span class="service-label" data-i18n="srv.c3.l3">International</span><span class="service-value" data-i18n="srv.c3.v3">5 – 10 business days</span></li>
+                        <li><span class="service-label" data-i18n="srv.c3.l4">Returns</span><span class="service-value" data-i18n="srv.c3.v4">30 days, hassle-free</span></li>
+                        <li><span class="service-label" data-i18n="srv.c3.l5">Packaging</span><span class="service-value" data-i18n="srv.c3.v5">100% biodegradable</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="newsletter">
+                <div class="newsletter-text">
+                    <h3 data-i18n="news.title">Letters from the Loom</h3>
+                    <p data-i18n="news.text">Monthly stories from the weavers, behind-the-scenes from new collections, and first access to limited drops.</p>
+                </div>
+                <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                    <input type="email" placeholder="your@email.com" required class="newsletter-input">
+                    <button type="submit" class="btn btn-primary" data-i18n="news.btn">Subscribe</button>
+                </form>
+                <p class="newsletter-success" id="newsletter-success" data-i18n="news.ok">Thank you. The next letter is on its way to you. ✦</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-chinese">安倫</span>
+                    <span class="logo-divider"></span>
+                    <span class="logo-subtitle">CRAFTS</span>
+                </div>
+                <p class="footer-tagline" data-i18n="footer.tag">Tradition woven into modern life.</p>
+                <p class="footer-address" data-i18n="footer.addr">Anlun Crafts Co., Ltd.<br>No. 88, Da'an Rd, Sec. 1<br>Da'an District, Taipei 106 · Taiwan</p>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer.h1">Discover</h4>
+                <a href="#story" data-i18n="nav.story">Our Story</a>
+                <a href="#products" data-i18n="nav.collection">Collection</a>
+                <a href="#craftsmanship" data-i18n="nav.craft">Craftsmanship</a>
+                <a href="#origin" data-i18n="nav.origin">Origin</a>
+                <a href="#offer" data-i18n="nav.offers">Offers</a>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer.h2">Care</h4>
+                <a href="#contact" data-i18n="srv.c1.t">Customer Service</a>
+                <a href="#contact" data-i18n="srv.c3.t">Shipping</a>
+                <a href="#contact" data-i18n="footer.l1">Returns</a>
+                <a href="#contact" data-i18n="srv.c2.t">Payment</a>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer.h3">Follow</h4>
+                <a href="#">Instagram</a>
+                <a href="#">Pinterest</a>
+                <a href="#">LINE</a>
+                <a href="#">Facebook</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <p data-i18n="footer.rights">© 2024 安倫 Crafts Co., Ltd. · 統一編號 12345678 · All weaves reserved.</p>
+                <p data-i18n="footer.respect">Designed in Taipei. Crafted with respect for the Ifugao people.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
